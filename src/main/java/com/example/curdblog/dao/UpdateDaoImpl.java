@@ -16,7 +16,6 @@ public class UpdateDaoImpl implements UpdateDao {
 
     @Override
     public String update(int id, JSONObject data) {
-        System.out.println("6666666666"+data);
         JSONObject jsonObject = JSONObject.parseObject(data.toString());
         System.out.println(jsonObject);
         String text = jsonObject.getString("data");
