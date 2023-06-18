@@ -5,11 +5,14 @@
     import axios from 'axios'
     import '../style/iconfont.css'
     import ReviseBox from '../components/ReviseBox.vue'
+    import AddBox from '../components/AddBox.vue'
 
     const content = ref({})
     const showEditBox = ref(false)
-    const text = ref('12312')
+    const text = ref('')
     const updateId = ref(0)
+    const data = ref('')
+    const showAddBox = ref(false)
     const getContent = async () => {
         const res = await get('/retrieve')
         content.value = res.data
@@ -43,7 +46,7 @@
     }
     const add = () => {
         post('/create', {
-            'data':data
+            'data':data.value
         })
         router.go(0)
         showEditBox=false
@@ -51,6 +54,12 @@
 </script>
 
 <template>
+     <AddBox v-if="showAddBox"
+        v-model="data"
+        @update:modelValue(v)="()=> data=v"
+        @closeAddBox="()=>showAddBox=false"
+        @add="add"
+        />
     <ReviseBox v-if="showEditBox"
         @close="()=>showEditBox=false"
         v-model="text"
@@ -58,7 +67,10 @@
         @update="update"
         />
     <h1>Blog Manager</h1>
-    <div class="add"><span class="iconfont">&#xe658; </span>Post new article</div>
+    {{ data }} {{ showAddBox }}
+    <div class="add"
+    @click="()=>showAddBox=true"
+    ><span class="iconfont">&#xe658; </span>Post new article</div>
     <div class="manager iconfont" @click="quit">
         &#xe609;
     </div>
