@@ -67,7 +67,6 @@
         @update="update"
         />
     <h1>Blog Manager</h1>
-    {{ data }} {{ showAddBox }}
     <div class="add"
     @click="()=>showAddBox=true"
     ><span class="iconfont">&#xe658; </span>Post new article</div>
